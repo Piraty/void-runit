@@ -32,6 +32,14 @@ detect_containerization() {
     # LXC
     if [ -e /proc/self/environ ] && grep -q lxc /proc/self/environ >/dev/null; then
         export IS_CONTAINER=1
+        export IS_LXC_CONTAINER=1
+        return 
+    fi
+
+    # Docker
+    if [ -f /.dockerenv ]; then
+        export IS_CONTAINER=1
+        export IS_DOCKER_CONTAINER=1
         return 
     fi
 }
